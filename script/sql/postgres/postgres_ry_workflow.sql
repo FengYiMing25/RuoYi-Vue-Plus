@@ -298,7 +298,6 @@ COMMENT ON COLUMN flow_user.tenant_id IS '租户id';
 CREATE TABLE flow_category
 (
     category_id   int8         NOT NULL,
-    tenant_id     VARCHAR(20)  DEFAULT '000000'::varchar,
     parent_id     int8         DEFAULT 0,
     ancestors     VARCHAR(500) DEFAULT ''::varchar,
     category_name VARCHAR(30)  NOT NULL,
@@ -314,7 +313,6 @@ CREATE TABLE flow_category
 
 COMMENT ON TABLE flow_category IS '流程分类';
 COMMENT ON COLUMN flow_category.category_id IS '流程分类ID';
-COMMENT ON COLUMN flow_category.tenant_id IS '租户编号';
 COMMENT ON COLUMN flow_category.parent_id IS '父流程分类id';
 COMMENT ON COLUMN flow_category.ancestors IS '祖级列表';
 COMMENT ON COLUMN flow_category.category_name IS '流程分类名称';
@@ -380,7 +378,6 @@ INSERT INTO flow_spel VALUES (2, NULL, NULL, 'initiator', '${initiator}', '流�
 -- ----------------------------
 CREATE TABLE flow_instance_biz_ext (
     id             int8,
-    tenant_id      VARCHAR(20)   DEFAULT '000000',
     create_dept    int8,
     create_by      int8,
     create_time    TIMESTAMP,
@@ -396,7 +393,6 @@ CREATE TABLE flow_instance_biz_ext (
 
 COMMENT ON TABLE flow_instance_biz_ext IS '流程实例业务扩展表';
 COMMENT ON COLUMN flow_instance_biz_ext.id  IS '主键id';
-COMMENT ON COLUMN flow_instance_biz_ext.tenant_id  IS '租户编号';
 COMMENT ON COLUMN flow_instance_biz_ext.create_dept  IS '创建部门';
 COMMENT ON COLUMN flow_instance_biz_ext.create_by  IS '创建者';
 COMMENT ON COLUMN flow_instance_biz_ext.create_time  IS '创建时间';
@@ -414,7 +410,6 @@ COMMENT ON COLUMN flow_instance_biz_ext.business_id  IS '业务Id';
 CREATE TABLE test_leave
 (
     id          int8         NOT NULL,
-    tenant_id   VARCHAR(20)  DEFAULT '000000'::varchar,
     apply_code  VARCHAR(50)  NOT NULL,
     leave_type  VARCHAR(255) NOT NULL,
     start_date  TIMESTAMP    NOT NULL,
@@ -432,7 +427,6 @@ CREATE TABLE test_leave
 
 COMMENT ON TABLE test_leave IS '请假申请表';
 COMMENT ON COLUMN test_leave.id IS 'id';
-COMMENT ON COLUMN test_leave.tenant_id IS '租户编号';
 COMMENT ON COLUMN test_leave.apply_code IS '申请编号';
 COMMENT ON COLUMN test_leave.leave_type IS '请假类型';
 COMMENT ON COLUMN test_leave.start_date IS '开始时间';
@@ -525,4 +519,3 @@ INSERT INTO sys_dict_data VALUES (56, '000000', 9, '抄送', 'copy', 'wf_task_st
 INSERT INTO sys_dict_data VALUES (57, '000000', 10, '加签', 'sign', 'wf_task_status', '', 'primary', 'N', 103, 1, now(), NULL, NULL, '加签');
 INSERT INTO sys_dict_data VALUES (58, '000000', 11, '减签', 'sign_off', 'wf_task_status', '', 'danger', 'N', 103, 1, now(), NULL, NULL, '减签');
 INSERT INTO sys_dict_data VALUES (59, '000000', 11, '超时', 'timeout', 'wf_task_status', '', 'danger', 'N', 103, 1, now(), NULL, NULL, '超时');
-

@@ -31,6 +31,7 @@ public class TestTreeBo extends BaseEntity {
     /**
      * 父ID
      */
+    @NotNull(message = "父ID不能为空，根节点请传0", groups = {AddGroup.class, EditGroup.class})
     private Long parentId;
 
     /**

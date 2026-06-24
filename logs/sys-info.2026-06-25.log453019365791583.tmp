@@ -1,0 +1,32 @@
+2026-07-01 16:16:26 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2026-07-01 16:16:26 [main] INFO  org.dromara.DromaraApplication - Starting DromaraApplication using Java 21.0.11 with PID 67939 (/Users/fengyiming/demoProject/RuoYi-Vue-Plus/ruoyi-admin/target/classes started by fengyiming in /Users/fengyiming/demoProject/RuoYi-Vue-Plus)
+2026-07-01 16:16:26 [main] INFO  org.dromara.DromaraApplication - The following 1 profile is active: "dev"
+2026-07-01 16:16:28 [main] INFO  io.undertow.servlet - Initializing Spring embedded WebApplicationContext
+2026-07-01 16:16:28 [main] INFO  c.b.d.d.DynamicRoutingDataSource - dynamic-datasource detect P6SPY plugin and enabled it
+2026-07-01 16:16:28 [main] INFO  com.zaxxer.hikari.HikariDataSource - master - Starting...
+2026-07-01 16:16:28 [main] INFO  com.zaxxer.hikari.pool.HikariPool - master - Added connection com.mysql.cj.jdbc.ConnectionImpl@e09c7a2
+2026-07-01 16:16:28 [main] INFO  com.zaxxer.hikari.HikariDataSource - master - Start completed.
+2026-07-01 16:16:28 [main] INFO  c.b.d.d.DynamicRoutingDataSource - dynamic-datasource - add a datasource named [master] success
+2026-07-01 16:16:28 [main] INFO  c.b.d.d.DynamicRoutingDataSource - dynamic-datasource initial loaded [1] datasource,primary datasource named [master]
+2026-07-01 16:16:29 [main] INFO  o.d.common.redis.config.RedisConfig - 初始化 redis 配置
+2026-07-01 16:16:29 [main] INFO  org.redisson.Version - Redisson 3.52.0
+2026-07-01 16:16:29 [redisson-netty-1-5] INFO  o.r.connection.ConnectionsHolder - 1 connections initialized for localhost/127.0.0.1:6379
+2026-07-01 16:16:29 [redisson-netty-1-4] INFO  o.r.connection.ConnectionsHolder - 8 connections initialized for localhost/127.0.0.1:6379
+2026-07-01 16:16:29 [main] INFO  c.a.s.c.j.c.e.b.AbstractScriptExecutor$SnailFileUtils - [FileUtils] [workspace] use user.home as workspace: /Users/fengyiming/snailJob/worker
+2026-07-01 16:16:29 [main] INFO  c.a.s.c.j.c.e.b.AbstractScriptExecutor$SnailFileUtils - [FileUtils] [workspace] use user.home as workspace: /Users/fengyiming/snailJob/worker
+2026-07-01 16:16:29 [main] INFO  c.a.s.c.j.c.e.b.AbstractScriptExecutor$SnailFileUtils - [FileUtils] [workspace] use user.home as workspace: /Users/fengyiming/snailJob/worker
+2026-07-01 16:16:30 [main] INFO  o.d.common.json.config.JacksonConfig - 初始化 jackson 配置
+2026-07-01 16:16:30 [main] INFO  c.a.s.c.s.SnailJobClientJobCoreAutoConfiguration - Snail-Job 客户端IP为: 192.168.0.104
+2026-07-01 16:16:30 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1136b469
+2026-07-01 16:16:33 [main] INFO  o.d.w.p.modes.sb.config.BeanConfig - 【warm-flow】，加载完成
+2026-07-01 16:16:34 [main] INFO  io.undertow - starting server: Undertow - 2.3.24.Final
+2026-07-01 16:16:34 [main] INFO  org.xnio - XNIO version 3.8.16.Final
+2026-07-01 16:16:34 [main] INFO  org.xnio.nio - XNIO NIO Implementation Version 3.8.16.Final
+2026-07-01 16:16:34 [main] INFO  org.jboss.threads - JBoss Threads version 3.7.0.Final
+2026-07-01 16:16:34 [main] INFO  io.undertow - stopping server: Undertow - 2.3.24.Final
+2026-07-01 16:16:34 [main] INFO  o.d.c.core.config.ThreadPoolConfig - ====关闭后台任务任务线程池====
+2026-07-01 16:16:34 [main] INFO  c.b.d.d.DynamicRoutingDataSource - dynamic-datasource start closing ....
+2026-07-01 16:16:34 [main] INFO  com.zaxxer.hikari.HikariDataSource - master - Shutdown initiated...
+2026-07-01 16:16:34 [main] INFO  com.zaxxer.hikari.HikariDataSource - master - Shutdown completed.
+2026-07-01 16:16:34 [main] INFO  c.b.d.d.d.DefaultDataSourceDestroyer - dynamic-datasource close the datasource named [master] success,
+2026-07-01 16:16:34 [main] INFO  c.b.d.d.DynamicRoutingDataSource - dynamic-datasource all closed success,bye

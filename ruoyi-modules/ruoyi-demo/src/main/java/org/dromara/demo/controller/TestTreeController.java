@@ -65,8 +65,7 @@ public class TestTreeController extends BaseController {
      */
     @SaCheckPermission("demo:tree:query")
     @GetMapping("/{id}")
-    public R<TestTreeVo> getInfo(@NotNull(message = "主键不能为空")
-                                 @PathVariable("id") Long id) {
+    public R<TestTreeVo> getInfo(@PathVariable @NotNull(message = "主键不能为空") Long id) {
         return R.ok(testTreeService.queryById(id));
     }
 

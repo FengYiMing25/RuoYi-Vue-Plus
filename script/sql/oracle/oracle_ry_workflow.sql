@@ -316,7 +316,6 @@ create index USER_ASSOCIATED_IDX on FLOW_USER (ASSOCIATED);
 CREATE TABLE flow_category
 (
     category_id     NUMBER(20) NOT NULL,
-    tenant_id       VARCHAR2(20) DEFAULT '000000',
     parent_id       NUMBER(20) DEFAULT 0,
     ancestors       VARCHAR2(500) DEFAULT '',
     category_name   VARCHAR2(30) NOT NULL,
@@ -333,7 +332,6 @@ alter table flow_category add constraint pk_flow_category primary key (category_
 
 COMMENT ON TABLE flow_category IS '流程分类';
 COMMENT ON COLUMN flow_category.category_id IS '流程分类ID';
-COMMENT ON COLUMN flow_category.tenant_id IS '租户编号';
 COMMENT ON COLUMN flow_category.parent_id IS '父流程分类id';
 COMMENT ON COLUMN flow_category.ancestors IS '祖级列表';
 COMMENT ON COLUMN flow_category.category_name IS '流程分类名称';
@@ -400,7 +398,6 @@ INSERT INTO flow_spel VALUES (2, NULL, NULL, 'initiator', '${initiator}', '流�
 -- ----------------------------
 CREATE TABLE flow_instance_biz_ext (
    id             NUMBER(20),
-   tenant_id      VARCHAR2(20)  DEFAULT '000000',
    create_dept    NUMBER(20),
    create_by      NUMBER(20),
    create_time    TIMESTAMP,
@@ -417,7 +414,6 @@ alter table flow_instance_biz_ext add constraint pk_fi_biz_ext primary key (id);
 
 COMMENT ON TABLE flow_instance_biz_ext IS '流程实例业务扩展表';
 COMMENT ON COLUMN flow_instance_biz_ext.id  IS '主键id';
-COMMENT ON COLUMN flow_instance_biz_ext.tenant_id  IS '租户编号';
 COMMENT ON COLUMN flow_instance_biz_ext.create_dept  IS '创建部门';
 COMMENT ON COLUMN flow_instance_biz_ext.create_by  IS '创建者';
 COMMENT ON COLUMN flow_instance_biz_ext.create_time  IS '创建时间';
@@ -435,7 +431,6 @@ COMMENT ON COLUMN flow_instance_biz_ext.business_id  IS '业务Id';
 CREATE TABLE test_leave
 (
     id          NUMBER (20) NOT NULL,
-    tenant_id   VARCHAR2 (20) DEFAULT '000000',
     apply_code  VARCHAR2 (50) NOT NULL,
     leave_type  VARCHAR2 (255) NOT NULL,
     start_date  DATE NOT NULL,
@@ -454,7 +449,6 @@ alter table test_leave add constraint pk_test_leave primary key (id);
 
 COMMENT ON TABLE test_leave IS '请假申请表';
 COMMENT ON COLUMN test_leave.id IS 'ID';
-COMMENT ON COLUMN test_leave.tenant_id IS '租户编号';
 COMMENT ON COLUMN test_leave.apply_code IS '申请编号';
 COMMENT ON COLUMN test_leave.leave_type IS '请假类型';
 COMMENT ON COLUMN test_leave.start_date IS '开始时间';

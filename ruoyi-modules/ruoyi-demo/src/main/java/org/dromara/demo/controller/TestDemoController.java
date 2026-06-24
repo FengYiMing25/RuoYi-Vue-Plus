@@ -102,8 +102,7 @@ public class TestDemoController extends BaseController {
      */
     @SaCheckPermission("demo:demo:query")
     @GetMapping("/{id}")
-    public R<TestDemoVo> getInfo(@NotNull(message = "主键不能为空")
-                                 @PathVariable("id") Long id) {
+    public R<TestDemoVo> getInfo(@PathVariable @NotNull(message = "主键不能为空") Long id) {
         return R.ok(testDemoService.queryById(id));
     }
 

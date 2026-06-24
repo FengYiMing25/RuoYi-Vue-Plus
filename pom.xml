@@ -10,14 +10,14 @@
 
     <name>RuoYi-Vue-Plus</name>
     <url>https://gitee.com/dromara/RuoYi-Vue-Plus</url>
-    <description>Dromara RuoYi-Vue-Plus多租户管理系统</description>
+    <description>Dromara RuoYi-Vue-Plus管理系统</description>
 
     <properties>
         <revision>5.6.2</revision>
         <spring-boot.version>3.5.15</spring-boot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>17</java.version>
+        <java.version>21</java.version>
         <mybatis.version>3.5.19</mybatis.version>
         <springdoc.version>2.8.17</springdoc.version>
         <therapi-javadoc.version>0.15.0</therapi-javadoc.version>
@@ -495,5 +495,4 @@
     </pluginRepositories>
 
 </project>
-
 

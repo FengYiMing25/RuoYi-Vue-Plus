@@ -5,7 +5,6 @@ create table sys_social
 (
     id                 number(20)        not null,
     user_id            number(20)        not null,
-    tenant_id          varchar2(20)      default '000000',
     auth_id            varchar2(255)     not null,
     source             varchar2(255)     not null,
     open_id            varchar2(255)     default null,
@@ -39,7 +38,6 @@ alter table sys_social add constraint pk_sys_social primary key (id);
 comment on table   sys_social                   is '社会化关系表';
 comment on column  sys_social.id                is '主键';
 comment on column  sys_social.user_id           is '用户ID';
-comment on column  sys_social.tenant_id         is '租户id';
 comment on column  sys_social.auth_id           is '平台+平台唯一id';
 comment on column  sys_social.source            is '用户来源';
 comment on column  sys_social.open_id           is '平台编号唯一id';
@@ -67,93 +65,6 @@ comment on column  sys_social.update_by         is '更新者';
 comment on column  sys_social.update_time       is '更新时间';
 comment on column  sys_social.del_flag          is '删除标志（0代表存在 1代表删除）';
 
--- ----------------------------
--- 租户表
--- ----------------------------
-create table sys_tenant (
-    id                number(20)    not null,
-    tenant_id         varchar2(20)  not null,
-    contact_user_name varchar2(20)  default '',
-    contact_phone     varchar2(20)  default '',
-    company_name      varchar2(30)  default '',
-    license_number    varchar2(30)  default '',
-    address           varchar2(200) default '',
-    intro             varchar2(200) default '',
-    domain            varchar2(200) default '',
-    remark            varchar2(200) default '',
-    package_id        number(20)    default null,
-    expire_time       date          default null,
-    account_count     number(4)     default -1,
-    status            char(1)       default '0',
-    del_flag          char(1)       default '0',
-    create_dept       number(20)    default null,
-    create_by         number(20)    default null,
-    create_time       date,
-    update_by         number(20)    default null,
-    update_time       date
-);
-
-alter table sys_tenant add constraint pk_sys_tenant primary key (id);
-
-comment on table   sys_tenant                    is '租户表';
-comment on column  sys_tenant.tenant_id          is '租户编号';
-comment on column  sys_tenant.contact_phone      is '联系电话';
-comment on column  sys_tenant.company_name       is '企业名称';
-comment on column  sys_tenant.company_name       is '联系人';
-comment on column  sys_tenant.license_number     is '统一社会信用代码';
-comment on column  sys_tenant.address            is '地址';
-comment on column  sys_tenant.intro              is '企业简介';
-comment on column  sys_tenant.remark             is '备注';
-comment on column  sys_tenant.package_id         is '租户套餐编号';
-comment on column  sys_tenant.expire_time        is '过期时间';
-comment on column  sys_tenant.account_count      is '用户数量（-1不限制）';
-comment on column  sys_tenant.status             is '租户状态（0正常 1停用）';
-comment on column  sys_tenant.del_flag           is '删除标志（0代表存在 1代表删除）';
-comment on column  sys_tenant.create_dept        is '创建部门';
-comment on column  sys_tenant.create_by          is '创建者';
-comment on column  sys_tenant.create_time        is '创建时间';
-comment on column  sys_tenant.update_by          is '更新者';
-comment on column  sys_tenant.update_time        is '更新时间';
-
--- ----------------------------
--- 初始化-租户表数据
--- ----------------------------
-
-insert into sys_tenant values(1, '000000', '管理组', '15888888888', 'XXX有限公司', null, null, '多租户通用后台管理管理系统', null, null, null, null, -1, '0', '0', 103, 1, sysdate, null, null);
-
-
--- ----------------------------
--- 租户套餐表
--- ----------------------------
-create table sys_tenant_package (
-    package_id              number(20)      not null,
-    package_name            varchar2(20)    default '',
-    menu_ids                varchar2(3000)  default '',
-    remark                  varchar2(200)   default '',
-    menu_check_strictly     number(1)       default 1,
-    status                  char(1)         default '0',
-    del_flag                char(1)         default '0',
-    create_dept             number(20)      default null,
-    create_by               number(20)      default null,
-    create_time             date,
-    update_by               number(20)      default null,
-    update_time             date
-);
-
-alter table sys_tenant_package add constraint pk_sys_tenant_package primary key (package_id);
-
-comment on table   sys_tenant_package                    is '租户套餐表';
-comment on column  sys_tenant_package.package_id         is '租户套餐id';
-comment on column  sys_tenant_package.package_name       is '套餐名称';
-comment on column  sys_tenant_package.menu_ids           is '关联菜单id';
-comment on column  sys_tenant_package.remark             is '备注';
-comment on column  sys_tenant_package.status             is '状态（0正常 1停用）';
-comment on column  sys_tenant_package.del_flag           is '删除标志（0代表存在 1代表删除）';
-comment on column  sys_tenant_package.create_dept        is '创建部门';
-comment on column  sys_tenant_package.create_by          is '创建者';
-comment on column  sys_tenant_package.create_time        is '创建时间';
-comment on column  sys_tenant_package.update_by          is '更新者';
-comment on column  sys_tenant_package.update_time        is '更新时间';
 
 
 -- ----------------------------
@@ -161,7 +72,6 @@ comment on column  sys_tenant_package.update_time        is '更新时间';
 -- ----------------------------
 create table sys_dept (
   dept_id           number(20)      not null,
-  tenant_id         varchar2(20)    default '000000',
   parent_id         number(20)      default 0,
   ancestors         varchar2(500)   default '',
   dept_name         varchar2(30)    default '',
@@ -183,7 +93,6 @@ alter table sys_dept add constraint pk_sys_dept primary key (dept_id);
 
 comment on table  sys_dept              is '部门表';
 comment on column sys_dept.dept_id      is '部门id';
-comment on column sys_dept.tenant_id    is '租户编号';
 comment on column sys_dept.parent_id    is '父部门id';
 comment on column sys_dept.ancestors    is '祖级列表';
 comment on column sys_dept.dept_name    is '部门名称';
@@ -221,7 +130,6 @@ insert into sys_dept values(109, '000000', 102, '0,100,102',  '财务部门',   
 -- ----------------------------
 create table sys_user (
   user_id           number(20)      not null,
-  tenant_id         varchar2(20)    default '000000',
   dept_id           number(20)      default null,
   user_name         varchar2(40)    not null,
   nick_name         varchar2(40)    not null,
@@ -247,7 +155,6 @@ alter table sys_user add constraint pk_sys_user primary key (user_id);
 
 comment on table  sys_user              is '用户信息表';
 comment on column sys_user.user_id      is '用户ID';
-comment on column sys_user.tenant_id    is '租户编号';
 comment on column sys_user.dept_id      is '部门ID';
 comment on column sys_user.user_name    is '用户账号';
 comment on column sys_user.nick_name    is '用户昵称';
@@ -271,16 +178,15 @@ comment on column sys_user.remark       is '备注';
 -- ----------------------------
 -- 初始化-用户信息表数据
 -- ----------------------------
-insert into sys_user values(1, '000000', 103, 'admin', '疯狂的狮子Li', 'sys_user', 'crazyLionLi@163.com', '15888888888', '1', null, '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', sysdate, 103, 1, sysdate, null, null, '管理员');
-insert into sys_user values(3, '000000', 108, 'test', '本部门及以下 密码666666', 'sys_user', '', '', '0', null, '$2a$10$b8yUzN0C71sbz.PhNOCgJe.Tu1yWC3RNrTyjSQ8p1W0.aaUXUJ.Ne', '0', '0', '127.0.0.1', sysdate, 103, 1, sysdate, null, null, '');
-insert into sys_user values(4, '000000', 102, 'test1', '仅本人 密码666666', 'sys_user', '', '', '0', null, '$2a$10$b8yUzN0C71sbz.PhNOCgJe.Tu1yWC3RNrTyjSQ8p1W0.aaUXUJ.Ne', '0', '0', '127.0.0.1', sysdate, 103, 1, sysdate, null, null, '');
+insert into sys_user values(1, 103, 'admin', '疯狂的狮子Li', 'sys_user', 'crazyLionLi@163.com', '15888888888', '1', null, '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', sysdate, 103, 1, sysdate, null, null, '管理员');
+insert into sys_user values(3, 108, 'test', '本部门及以下 密码666666', 'sys_user', '', '', '0', null, '$2a$10$b8yUzN0C71sbz.PhNOCgJe.Tu1yWC3RNrTyjSQ8p1W0.aaUXUJ.Ne', '0', '0', '127.0.0.1', sysdate, 103, 1, sysdate, null, null, '');
+insert into sys_user values(4, 102, 'test1', '仅本人 密码666666', 'sys_user', '', '', '0', null, '$2a$10$b8yUzN0C71sbz.PhNOCgJe.Tu1yWC3RNrTyjSQ8p1W0.aaUXUJ.Ne', '0', '0', '127.0.0.1', sysdate, 103, 1, sysdate, null, null, '');
 
 -- ----------------------------
 -- 3、岗位信息表
 -- ----------------------------
 create table sys_post (
   post_id           number(20)      not null,
-  tenant_id         varchar2(20)    default '000000',
   dept_id           number(20)      not null,
   post_code         varchar2(64)    not null,
   post_category     varchar2(64)    default null,
@@ -299,7 +205,6 @@ alter table sys_post add constraint pk_sys_post primary key (post_id);
 
 comment on table  sys_post              is '岗位信息表';
 comment on column sys_post.post_id      is '岗位ID';
-comment on column sys_post.tenant_id    is '租户编号';
 comment on column sys_post.dept_id      is '部门id';
 comment on column sys_post.post_code    is '岗位编码';
 comment on column sys_post.post_category is '岗位类别编码';
@@ -327,7 +232,6 @@ insert into sys_post values(4, '000000', 100, 'user', null, '普通员工',  4, 
 -- ----------------------------
 create table sys_role (
   role_id              number(20)      not null,
-  tenant_id            varchar2(20)    default '000000',
   role_name            varchar2(30)    not null,
   role_key             varchar2(100)   not null,
   role_sort            number(4)       not null,
@@ -348,7 +252,6 @@ alter table sys_role add constraint pk_sys_role primary key (role_id);
 
 comment on table  sys_role                       is '角色信息表';
 comment on column sys_role.role_id               is '角色ID';
-comment on column sys_role.tenant_id             is '租户编号';
 comment on column sys_role.role_name             is '角色名称';
 comment on column sys_role.role_key              is '角色权限字符串';
 comment on column sys_role.role_sort             is '显示顺序';
@@ -426,7 +329,6 @@ comment on column sys_menu.remark       is '备注';
 -- ----------------------------
 -- 一级菜单
 insert into sys_menu values('1', '系统管理', '0', '1', 'system',           null, '', 1, 0, 'M', '0', '0', '', 'system',   103, 1, sysdate, null, null, '系统管理目录');
-insert into sys_menu values('6', '租户管理', '0', '2', 'tenant',           null, '', 1, 0, 'M', '0', '0', '', 'chart',    103, 1, sysdate, null, null, '租户管理目录');
 insert into sys_menu values('2', '系统监控', '0', '3', 'monitor',          null, '', 1, 0, 'M', '0', '0', '', 'monitor',  103, 1, sysdate, null, null, '系统监控目录');
 insert into sys_menu values('3', '系统工具', '0', '4', 'tool',             null, '', 1, 0, 'M', '0', '0', '', 'tool',     103, 1, sysdate, null, null, '系统工具目录');
 insert into sys_menu values('4', 'PLUS官网', '0', '5', 'https://gitee.com/dromara/RuoYi-Vue-Plus', null, '', 0, 0, 'M', '0', '0', '', 'guide',    103, 1, sysdate, null, null, 'RuoYi-Vue-Plus官网地址');
@@ -444,8 +346,6 @@ insert into sys_menu values('108',  '日志管理',     '1',   '9', 'log',      
 insert into sys_menu values('109',  '在线用户',     '2',   '1', 'online',           'monitor/online/index',         '', 1, 0, 'C', '0', '0', 'monitor:online:list',         'online',        103, 1, sysdate, null, null, '在线用户菜单');
 insert into sys_menu values('113',  '缓存监控',     '2',   '5', 'cache',            'monitor/cache/index',          '', 1, 0, 'C', '0', '0', 'monitor:cache:list',          'redis',         103, 1, sysdate, null, null, '缓存监控菜单');
 insert into sys_menu values('115',  '代码生成',     '3',   '2', 'gen',              'tool/gen/index',               '', 1, 0, 'C', '0', '0', 'tool:gen:list',               'code',          103, 1, sysdate, null, null, '代码生成菜单');
-insert into sys_menu values('121',  '租户管理',     '6',   '1', 'tenant',           'system/tenant/index',          '', 1, 0, 'C', '0', '0', 'system:tenant:list',          'list',          103, 1, sysdate, null, null, '租户管理菜单');
-insert into sys_menu values('122',  '租户套餐管理', '6',   '2', 'tenantPackage',    'system/tenantPackage/index',   '', 1, 0, 'C', '0', '0', 'system:tenantPackage:list',   'form',          103, 1, sysdate, null, null, '租户套餐管理菜单');
 insert into sys_menu values('123',  '客户端管理',   '1',   '11', 'client',           'system/client/index',          '', 1, 0, 'C', '0', '0', 'system:client:list',          'international', 103, 1, sysdate, null, null, '客户端管理菜单');
 insert into sys_menu values('116', '修改生成配置',  '3',   '2', 'gen-edit/index/:tableId', 'tool/gen/editTable', '', 1, 1, 'C', '1', '0', 'tool:gen:edit',           '#',               103, 1, sysdate, null, null, '/tool/gen');
 insert into sys_menu values('130', '分配用户',     '1',   '2', 'role-auth/user/:roleId', 'system/role/authUser', '', 1, 1, 'C', '1', '0', 'system:role:edit',      '#',               103, 1, sysdate, null, null, '/system/role');
@@ -539,18 +439,6 @@ insert into sys_menu values('1620', '配置列表', '118', '5', '#', '', '', 1, 
 insert into sys_menu values('1621', '配置添加', '118', '6', '#', '', '', 1, 0, 'F', '0', '0', 'system:ossConfig:add',    '#', 103, 1, sysdate, null, null, '');
 insert into sys_menu values('1622', '配置编辑', '118', '6', '#', '', '', 1, 0, 'F', '0', '0', 'system:ossConfig:edit',   '#', 103, 1, sysdate, null, null, '');
 insert into sys_menu values('1623', '配置删除', '118', '6', '#', '', '', 1, 0, 'F', '0', '0', 'system:ossConfig:remove', '#', 103, 1, sysdate, null, null, '');
--- 租户管理相关按钮
-insert into sys_menu values('1606', '租户查询', '121', '1', '#', '', '', 1, 0, 'F', '0', '0', 'system:tenant:query',   '#', 103, 1, sysdate, null, null, '');
-insert into sys_menu values('1607', '租户新增', '121', '2', '#', '', '', 1, 0, 'F', '0', '0', 'system:tenant:add',     '#', 103, 1, sysdate, null, null, '');
-insert into sys_menu values('1608', '租户修改', '121', '3', '#', '', '', 1, 0, 'F', '0', '0', 'system:tenant:edit',    '#', 103, 1, sysdate, null, null, '');
-insert into sys_menu values('1609', '租户删除', '121', '4', '#', '', '', 1, 0, 'F', '0', '0', 'system:tenant:remove',  '#', 103, 1, sysdate, null, null, '');
-insert into sys_menu values('1610', '租户导出', '121', '5', '#', '', '', 1, 0, 'F', '0', '0', 'system:tenant:export',  '#', 103, 1, sysdate, null, null, '');
--- 租户套餐管理相关按钮
-insert into sys_menu values('1611', '租户套餐查询', '122', '1', '#', '', '', 1, 0, 'F', '0', '0', 'system:tenantPackage:query',   '#', 103, 1, sysdate, null, null, '');
-insert into sys_menu values('1612', '租户套餐新增', '122', '2', '#', '', '', 1, 0, 'F', '0', '0', 'system:tenantPackage:add',     '#', 103, 1, sysdate, null, null, '');
-insert into sys_menu values('1613', '租户套餐修改', '122', '3', '#', '', '', 1, 0, 'F', '0', '0', 'system:tenantPackage:edit',    '#', 103, 1, sysdate, null, null, '');
-insert into sys_menu values('1614', '租户套餐删除', '122', '4', '#', '', '', 1, 0, 'F', '0', '0', 'system:tenantPackage:remove',  '#', 103, 1, sysdate, null, null, '');
-insert into sys_menu values('1615', '租户套餐导出', '122', '5', '#', '', '', 1, 0, 'F', '0', '0', 'system:tenantPackage:export',  '#', 103, 1, sysdate, null, null, '');
 -- 客户端管理按钮
 insert into sys_menu values('1061', '客户端管理查询', '123', '1',  '#', '', '', 1, 0, 'F', '0', '0', 'system:client:query',        '#', 103, 1, sysdate, null, null, '');
 insert into sys_menu values('1062', '客户端管理新增', '123', '2',  '#', '', '', 1, 0, 'F', '0', '0', 'system:client:add',          '#', 103, 1, sysdate, null, null, '');
@@ -768,7 +656,6 @@ insert into sys_user_post values ('1', '1');
 -- ----------------------------
 create table sys_oper_log (
   oper_id           number(20)      not null,
-  tenant_id         varchar2(20)    default '000000',
   title             varchar2(50)    default '',
   business_type     number(2)       default 0,
   method            varchar2(100)   default '',
@@ -794,7 +681,6 @@ create index idx_sys_oper_log_ot on sys_oper_log (oper_time);
 
 comment on table  sys_oper_log                is '操作日志记录';
 comment on column sys_oper_log.oper_id        is '日志主键';
-comment on column sys_oper_log.tenant_id      is '租户编号';
 comment on column sys_oper_log.title          is '模块标题';
 comment on column sys_oper_log.business_type  is '业务类型（0其它 1新增 2修改 3删除）';
 comment on column sys_oper_log.method         is '方法名称';
@@ -818,7 +704,6 @@ comment on column sys_oper_log.cost_time      is '消耗时间';
 -- ----------------------------
 create table sys_dict_type (
   dict_id           number(20)      not null,
-  tenant_id         varchar2(20)    default '000000',
   dict_name         varchar2(100)   default '',
   dict_type         varchar2(100)   default '',
   create_dept       number(20)      default null,
@@ -830,11 +715,10 @@ create table sys_dict_type (
 );
 
 alter table sys_dict_type add constraint pk_sys_dict_type primary key (dict_id);
-create unique index sys_dict_type_index1 on sys_dict_type (tenant_id, dict_type);
+create unique index sys_dict_type_index1 on sys_dict_type (dict_type);
 
 comment on table  sys_dict_type               is '字典类型表';
 comment on column sys_dict_type.dict_id       is '字典主键';
-comment on column sys_dict_type.tenant_id     is '租户编号';
 comment on column sys_dict_type.dict_name     is '字典名称';
 comment on column sys_dict_type.dict_type     is '字典类型';
 comment on column sys_dict_type.create_dept   is '创建部门';
@@ -861,7 +745,6 @@ insert into sys_dict_type values(12, '000000', '设备类型', 'sys_device_type'
 -- ----------------------------
 create table sys_dict_data (
   dict_code        number(20)      not null,
-  tenant_id        varchar2(20)    default '000000',
   dict_sort        number(4)       default 0,
   dict_label       varchar2(100)   default '',
   dict_value       varchar2(100)   default '',
@@ -881,7 +764,6 @@ alter table sys_dict_data add constraint pk_sys_dict_data primary key (dict_code
 
 comment on table  sys_dict_data               is '字典数据表';
 comment on column sys_dict_data.dict_code     is '字典主键';
-comment on column sys_dict_data.tenant_id     is '租户编号';
 comment on column sys_dict_data.dict_sort     is '字典排序';
 comment on column sys_dict_data.dict_label    is '字典标签';
 comment on column sys_dict_data.dict_value    is '字典键值';
@@ -937,7 +819,6 @@ insert into sys_dict_data values(38, '000000', 0,  '小程序',     'xcx',      
 -- ----------------------------
 create table sys_config (
   config_id         number(20)     not null,
-  tenant_id         varchar2(20)   default '000000',
   config_name       varchar2(100)  default '',
   config_key        varchar2(100)  default '',
   config_value      varchar2(100)  default '',
@@ -953,7 +834,6 @@ alter table sys_config add constraint pk_sys_config primary key (config_id);
 
 comment on table  sys_config               is '参数配置表';
 comment on column sys_config.config_id     is '参数主键';
-comment on column sys_config.tenant_id     is '租户编号';
 comment on column sys_config.config_name   is '参数名称';
 comment on column sys_config.config_key    is '参数键名';
 comment on column sys_config.config_value  is '参数键值';
@@ -977,7 +857,6 @@ insert into sys_config values(11, '000000', 'OSS预览列表资源开关',      
 -- ----------------------------
 create table sys_logininfor (
   info_id         number(20)     not null,
-  tenant_id       varchar2(20)   default '000000',
   user_name       varchar2(50)   default '',
   client_key      varchar2(32)   default '',
   device_type     varchar2(32)   default '',
@@ -996,7 +875,6 @@ create index idx_sys_logininfor_lt on sys_logininfor (login_time);
 
 comment on table  sys_logininfor                is '系统访问记录';
 comment on column sys_logininfor.info_id        is '访问ID';
-comment on column sys_logininfor.tenant_id      is '租户编号';
 comment on column sys_logininfor.user_name      is '登录账号';
 comment on column sys_logininfor.client_key     is '客户端';
 comment on column sys_logininfor.device_type    is '设备类型';
@@ -1014,7 +892,6 @@ comment on column sys_logininfor.login_time     is '访问时间';
 -- ----------------------------
 create table sys_notice (
   notice_id         number(20)      not null,
-  tenant_id         varchar2(20)    default '000000',
   notice_title      varchar2(50)    not null,
   notice_type       char(1)         not null,
   notice_content    clob            default null,
@@ -1031,7 +908,6 @@ alter table sys_notice add constraint pk_sys_notice primary key (notice_id);
 
 comment on table  sys_notice                   is '通知公告表';
 comment on column sys_notice.notice_id         is '公告主键';
-comment on column sys_notice.tenant_id         is '租户编号';
 comment on column sys_notice.notice_title      is '公告标题';
 comment on column sys_notice.notice_type       is '公告类型（1通知 2公告）';
 comment on column sys_notice.notice_content    is '公告内容';
@@ -1167,7 +1043,6 @@ comment on column gen_table_column.update_time    is '更新时间';
 -- ----------------------------
 create table sys_oss (
   oss_id          number(20)     not null,
-  tenant_id       varchar2(20)   default '000000',
   file_name       varchar2(255)  not null,
   original_name   varchar2(255)  not null,
   file_suffix     varchar2(10)   not null,
@@ -1185,7 +1060,6 @@ alter table sys_oss add constraint pk_sys_oss primary key (oss_id);
 
 comment on table sys_oss                    is 'OSS对象存储表';
 comment on column sys_oss.oss_id            is '对象存储主键';
-comment on column sys_oss.tenant_id         is '租户编码';
 comment on column sys_oss.file_name         is '文件名';
 comment on column sys_oss.original_name     is '原名';
 comment on column sys_oss.file_suffix       is '文件后缀名';
@@ -1204,7 +1078,6 @@ comment on column sys_oss.update_by         is '更新者';
 -- ----------------------------
 create table sys_oss_config (
   oss_config_id   number(20)     not null,
-  tenant_id       varchar2(20)   default '000000',
   config_key      varchar2(20)   not null,
   access_key      varchar2(255)  default '',
   secret_key      varchar2(255)  default '',
@@ -1229,7 +1102,6 @@ alter table sys_oss_config add constraint pk_sys_oss_config primary key (oss_con
 
 comment on table sys_oss_config                 is '对象存储配置表';
 comment on column sys_oss_config.oss_config_id  is '主键';
-comment on column sys_oss_config.tenant_id      is '租户编码';
 comment on column sys_oss_config.config_key     is '配置key';
 comment on column sys_oss_config.access_key     is 'accesskey';
 comment on column sys_oss_config.secret_key     is '秘钥';
@@ -1300,7 +1172,6 @@ insert into sys_client values (2, '428a8310cd442757ae699df5d894f051', 'app', 'ap
 
 create table test_demo (
     id          number(20)      not null,
-    tenant_id   varchar2(20)    default '000000',
     dept_id     number(20)      default null,
     user_id     number(20)      default null,
     order_num   number(10)      default 0,
@@ -1319,7 +1190,6 @@ alter table test_demo add constraint pk_test_demo primary key (id);
 
 comment on table  test_demo              is '测试单表';
 comment on column test_demo.id           is '主键';
-comment on column test_demo.tenant_id    is '租户编号';
 comment on column test_demo.dept_id      is '部门id';
 comment on column test_demo.user_id      is '用户id';
 comment on column test_demo.order_num    is '排序号';
@@ -1335,7 +1205,6 @@ comment on column test_demo.del_flag     is '删除标志';
 
 create table test_tree (
     id          number(20)      not null,
-    tenant_id   varchar2(20)    default '000000',
     parent_id   number(20)      default 0,
     dept_id     number(20)      default null,
     user_id     number(20)      default null,
@@ -1353,7 +1222,6 @@ alter table test_tree add constraint pk_test_tree primary key (id);
 
 comment on table  test_tree              is '测试树表';
 comment on column test_tree.id           is '主键';
-comment on column test_tree.tenant_id    is '租户编号';
 comment on column test_tree.parent_id    is '父id';
 comment on column test_tree.dept_id      is '部门id';
 comment on column test_tree.user_id      is '用户id';
