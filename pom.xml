@@ -357,6 +357,12 @@
                 <version>${revision}</version>
             </dependency>
 
+            <!-- 商品管理模块 -->
+            <dependency>
+                <groupId>org.dromara</groupId>
+                <artifactId>ruoyi-product</artifactId>
+                <version>${revision}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
