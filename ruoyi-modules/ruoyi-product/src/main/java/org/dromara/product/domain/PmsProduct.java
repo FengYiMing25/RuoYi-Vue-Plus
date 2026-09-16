@@ -1,9 +1,6 @@
 package org.dromara.product.domain;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.Version;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.dromara.common.mybatis.core.domain.BaseEntity;
@@ -46,11 +43,18 @@ public class PmsProduct extends BaseEntity {
     /**
      * 商品卖点
      */
+    @TableField(updateStrategy = FieldStrategy.ALWAYS)
     private String sellingPoint;
 
     /**
+     * 商品详情富文本HTML
+     */
+    @TableField(updateStrategy = FieldStrategy.ALWAYS)
+    private String detailContent;
+    /**
      * 商品主图OSS ID
      */
+    @TableField(updateStrategy = FieldStrategy.ALWAYS)
     private Long mainImageId;
 
     /**
@@ -98,5 +102,6 @@ public class PmsProduct extends BaseEntity {
     /**
      * 备注
      */
+    @TableField(updateStrategy = FieldStrategy.ALWAYS)
     private String remark;
 }

@@ -72,6 +72,16 @@ public class PmsProductBo {
     private String sellingPoint;
 
     /**
+     * 商品详情富文本HTML
+     */
+    @Size(
+        max = 200000,
+        message = "商品详情内容不能超过{max}个字符",
+        groups = {AddGroup.class, EditGroup.class}
+    )
+    private String detailContent;
+
+    /**
      * 商品主图OSS ID
      */
     private Long mainImageId;

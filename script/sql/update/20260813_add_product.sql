@@ -11,6 +11,7 @@ create table pms_product
     product_name   varchar(200)                    not null comment '商品名称',
     category_id    bigint                          not null comment '所属分类ID',
     selling_point  varchar(255)                    null comment '商品卖点',
+    detail_content mediumtext                      null  comment '商品详情富文本HTML',
     main_image_id  bigint                          null comment '商品主图OSS ID',
     unit           varchar(32)  default '件'        not null comment '商品单位',
     min_price      decimal(10,2) default 0.00       not null comment 'SKU最低售价（汇总）',

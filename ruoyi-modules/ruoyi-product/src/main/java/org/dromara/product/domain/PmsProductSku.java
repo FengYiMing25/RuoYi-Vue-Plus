@@ -1,9 +1,6 @@
 package org.dromara.product.domain;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.Version;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.dromara.common.mybatis.core.domain.BaseEntity;
@@ -51,6 +48,7 @@ public class PmsProductSku extends BaseEntity {
     /**
      * SKU图片OSS ID
      */
+    @TableField(updateStrategy = FieldStrategy.ALWAYS)
     private Long skuImageId;
 
     /**
@@ -61,6 +59,7 @@ public class PmsProductSku extends BaseEntity {
     /**
      * 市场划线价
      */
+    @TableField(updateStrategy = FieldStrategy.ALWAYS)
     private BigDecimal marketPrice;
 
     /**
@@ -78,6 +77,12 @@ public class PmsProductSku extends BaseEntity {
      */
     private String status;
 
+    /**
+     * 规格值组合键
+     * 默认SKU：DEFAULT
+     * 多规格SKU：3001_3003
+     */
+    private String specKey;
     /**
      * 显示顺序
      */

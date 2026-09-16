@@ -199,6 +199,7 @@ xss:
   excludeUrls:
     - /system/notice
     - /warm-flow/save-json
+    - /product/product
 
 --- # 分布式锁 lock4j 全局配置
 lock4j:

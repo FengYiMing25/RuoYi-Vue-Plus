@@ -2,9 +2,11 @@ package org.dromara.product.service;
 
 import org.dromara.common.mybatis.core.page.PageQuery;
 import org.dromara.common.mybatis.core.page.TableDataInfo;
-import org.dromara.product.domain.bo.PmsProductBo;
 import org.dromara.product.domain.bo.PmsProductCreateBo;
 import org.dromara.product.domain.bo.PmsProductQueryBo;
+import org.dromara.product.domain.bo.PmsProductStatusBo;
+import org.dromara.product.domain.bo.PmsProductUpdateBo;
+import org.dromara.product.domain.vo.PmsProductDetailVo;
 import org.dromara.product.domain.vo.PmsProductVo;
 
 /**
@@ -18,7 +20,7 @@ public interface IPmsProductService {
      * @param productId 商品ID
      * @return 商品信息
      */
-    PmsProductVo queryById(Long productId);
+    PmsProductDetailVo queryDetailById(Long productId);
 
     /**
      * 分页查询商品列表
@@ -50,7 +52,7 @@ public interface IPmsProductService {
      * @param bo 商品参数
      * @return 是否成功
      */
-    Boolean updateByBo(PmsProductBo bo);
+    Boolean updateByBo(PmsProductUpdateBo bo);
 
     /**
      * 校验并删除商品
@@ -61,4 +63,16 @@ public interface IPmsProductService {
      * @return 是否成功
      */
     Boolean deleteWithValidById(Long productId);
+
+    /**
+     * 修改商品状态
+     *
+     * @param productId 商品ID
+     * @param bo 状态变更参数
+     * @return 是否成功
+     */
+    Boolean changeStatus(
+        Long productId,
+        PmsProductStatusBo bo
+    );
 }

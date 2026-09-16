@@ -28,7 +28,6 @@ ALTER TABLE sys_logininfor DROP COLUMN tenant_id;
 ALTER TABLE sys_notice DROP COLUMN tenant_id;
 ALTER TABLE sys_oss DROP COLUMN tenant_id;
 ALTER TABLE sys_oss_config DROP COLUMN tenant_id;
-ALTER TABLE sys_client DROP COLUMN tenant_id;
 ALTER TABLE test_demo DROP COLUMN tenant_id;
 ALTER TABLE test_tree DROP COLUMN tenant_id;
 

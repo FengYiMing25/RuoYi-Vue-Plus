@@ -12,7 +12,7 @@ update pms_product_sku sku
     join (select sku_id, group_concat(spec_value_id order by spec_value_id separator '_') as spec_key
           from pms_sku_spec_value group by sku_id
           ) relation_data on relation_data.sku_id = sku.sku_id
-    set sku.sku_key = relation_data.spec_key
+    set sku.spec_key = relation_data.spec_key
     where sku.sku_type = '1' and sku.spec_key is null;
 
 -- 查询是否存在无法回填的数据
